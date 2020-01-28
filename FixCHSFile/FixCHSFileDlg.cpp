@@ -1,10 +1,10 @@
 ﻿
-// MFCApplication1Dlg.cpp : 实现文件
+// FixCHSFileDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
-#include "MFCApplication1.h"
-#include "MFCApplication1Dlg.h"
+#include "FixCHSFile.h"
+#include "FixCHSFileDlg.h"
 #include "afxdialogex.h"
 #include <cstring>
 #include<locale>
@@ -15,31 +15,31 @@
 #endif
 
 
-// CMFCApplication1Dlg 对话框
+// CFixCHSFileDlg 对话框
 
 
 
-CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=NULL*/)
+CFixCHSFileDlg::CFixCHSFileDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_MFCAPPLICATION1_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
+void CFixCHSFileDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CFixCHSFileDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_DROPFILES()
 END_MESSAGE_MAP()
 
 
-// CMFCApplication1Dlg 消息处理程序
+// CFixCHSFileDlg 消息处理程序
 
-BOOL CMFCApplication1Dlg::OnInitDialog()
+BOOL CFixCHSFileDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -57,7 +57,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 //  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
 
-void CMFCApplication1Dlg::OnPaint()
+void CFixCHSFileDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -75,6 +75,7 @@ void CMFCApplication1Dlg::OnPaint()
 
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
+		
 	}
 	else
 	{
@@ -84,7 +85,7 @@ void CMFCApplication1Dlg::OnPaint()
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
 //显示。
-HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
+HCURSOR CFixCHSFileDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
@@ -149,7 +150,7 @@ std::string url_decode(wchar_t* line)
 
 }
 
-void CMFCApplication1Dlg::OnDropFiles(HDROP hDropInfo)
+void CFixCHSFileDlg::OnDropFiles(HDROP hDropInfo)
 {
 	unsigned int file_count;
 	unsigned int file_start;
@@ -159,45 +160,52 @@ void CMFCApplication1Dlg::OnDropFiles(HDROP hDropInfo)
 	std::string binstr;
 	std::wstring filename_out;
 	bool noerror = true;
+	std::wstring newfilepath;
+
+	std::wstring_convert<chs_codecvt> CHSconverter;
+	std::wstring_convert<euc_codecvt> EUCconverter;
+	CString newfile, filename, path;
+	std::string urlfilename;
 	if (DragQueryFile(hDropInfo, 0, filepath, MAX_PATH) > 0) {
-		CString newfile(filepath),filename,path;
+		newfile.Append(filepath);
 		file_start=newfile.ReverseFind('\\');
 		filename = newfile.Mid(file_start + 1);
 		path = newfile.Mid(0, file_start);
-		std::wstring newfilepath;
-
-		std::wstring_convert<chs_codecvt> CHSconverter;
-		std::wstring_convert<euc_codecvt> EUCconverter;
+		
 		try {
 			binstr = EUCconverter.to_bytes(filename);
 			filename_out = CHSconverter.from_bytes(binstr);
 		}
 		catch (const std::range_error& e) {
-			MessageBox(L"无法转换文件名", (reinterpret_cast<LPCTSTR>(L"HEllo")), MB_ICONERROR);
+			MessageBox(L"无法转换文件名", L"Error", MB_ICONERROR);
 			noerror = false;
 		}
 		
 		if ((wcscmp(filename, filename_out.c_str()) == 0) && (wcschr(filename,'%')>0)) {
-			std::string urlfilename = url_decode(filename.GetBuffer());
-			std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> ucs2conv;
+			urlfilename = url_decode(filename.GetBuffer());
+			
 			try {
 				filename_out = ucs2conv.from_bytes(urlfilename);
 			}
 			catch (const std::range_error& e) {
-				MessageBox(L"无法转换文件名", (reinterpret_cast<LPCTSTR>(L"HEllo")), MB_ICONERROR);
+				MessageBox(L"无法转换文件名", L"Error", MB_ICONERROR);
 				noerror = false;
 			}
 		}
-		newfilepath = path + '\\';
+		newfilepath = filepath;
+		newfilepath += L'\n';
+		newfilepath += L"转换为\n";
+		newfilepath += path;
+		newfilepath += L'\\';
 		newfilepath += filename_out;
 		
 		if ((filename_out.length() > 0 )&& noerror) {
-			if (MessageBox(newfilepath.c_str(), (reinterpret_cast<LPCTSTR>(L"转换文件名为")), MB_ICONINFORMATION || MB_OKCANCEL) == IDOK) {
+			if (MessageBox(newfilepath.c_str(), L"转换文件名为", MB_ICONQUESTION | MB_OKCANCEL | MB_DEFBUTTON1) == IDOK) {
 				_wrename(newfile, newfilepath.c_str());
 			}
 		}
 		else {
-			MessageBox(L"无法完成转换文件", (reinterpret_cast<LPCTSTR>(L"无法转换")), MB_ICONWARNING);
+			MessageBox(L"无法完成转换文件", L"无法转换", MB_ICONWARNING);
 		}
 	}
 	// TODO: 在此添加消息处理程序代码和/或调用默认值

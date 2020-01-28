@@ -1,40 +1,40 @@
 
-// MFCApplication1.cpp : 定义应用程序的类行为。
+// FixCHSFile.cpp : 定义应用程序的类行为。
 //
 
 #include "stdafx.h"
-#include "MFCApplication1.h"
-#include "MFCApplication1Dlg.h"
+#include "FixCHSFile.h"
+#include "FixCHSFileDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// CMFCApplication1App
+// CFixCHSFileApp
 
-BEGIN_MESSAGE_MAP(CMFCApplication1App, CWinApp)
+BEGIN_MESSAGE_MAP(CFixCHSFileApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CMFCApplication1App 构造
+// CFixCHSFileApp 构造
 
-CMFCApplication1App::CMFCApplication1App()
+CFixCHSFileApp::CFixCHSFileApp()
 {
 	// TODO: 在此处添加构造代码，
 	// 将所有重要的初始化放置在 InitInstance 中
 }
 
 
-// 唯一的一个 CMFCApplication1App 对象
+// 唯一的一个 CFixCHSFileApp 对象
 
-CMFCApplication1App theApp;
+CFixCHSFileApp theApp;
 
 
-// CMFCApplication1App 初始化
+// CFixCHSFileApp 初始化
 
-BOOL CMFCApplication1App::InitInstance()
+BOOL CFixCHSFileApp::InitInstance()
 {
 	CWinApp::InitInstance();
 
@@ -55,7 +55,7 @@ BOOL CMFCApplication1App::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	CMFCApplication1Dlg dlg;
+	CFixCHSFileDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

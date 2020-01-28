@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA195565-12C4-49EA-99E4-BD21957BFECE}</ProjectGuid>
-    <RootNamespace>MFCApplication1</RootNamespace>
+    <RootNamespace>FixCHSFile</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -187,15 +187,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MFCApplication1.h" />
-    <ClInclude Include="MFCApplication1Dlg.h" />
+    <ClInclude Include="FixCHSFile.h" />
+    <ClInclude Include="FixCHSFileDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MFCApplication1.cpp" />
-    <ClCompile Include="MFCApplication1Dlg.cpp" />
+    <ClCompile Include="FixCHSFile.cpp" />
+    <ClCompile Include="FixCHSFileDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -204,20 +204,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MFCApplication1.rc" />
+    <ResourceCompile Include="FixCHSFile.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MFCApplication1.rc2" />
+    <None Include="res\FixCHSFile.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MFCApplication1.ico" />
+    <Image Include="res\FixCHSFile.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="MFCApplication1.rc" />
+      <UserProperties RESOURCE_FILE="FixCHSFile.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

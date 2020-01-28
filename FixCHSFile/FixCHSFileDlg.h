@@ -1,20 +1,20 @@
 
-// MFCApplication1Dlg.h : 头文件
+// FixCHSFileDlg.h : 头文件
 //
 
 #pragma once
 
 
-// CMFCApplication1Dlg 对话框
-class CMFCApplication1Dlg : public CDialogEx
+// CFixCHSFileDlg 对话框
+class CFixCHSFileDlg : public CDialogEx
 {
 // 构造
 public:
-	CMFCApplication1Dlg(CWnd* pParent = NULL);	// 标准构造函数
+	CFixCHSFileDlg(CWnd* pParent = NULL);	// 标准构造函数
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_MFCAPPLICATION1_DIALOG };
+	enum { IDD = IDD_FixCHSFile_DIALOG };
 #endif
 
 	protected:

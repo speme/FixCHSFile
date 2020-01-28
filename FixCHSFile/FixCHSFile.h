@@ -1,5 +1,5 @@
 
-// MFCApplication1.h : PROJECT_NAME 应用程序的主头文件
+// FixCHSFile.h : PROJECT_NAME 应用程序的主头文件
 //
 
 #pragma once
@@ -11,14 +11,14 @@
 #include "resource.h"		// 主符号
 
 
-// CMFCApplication1App: 
-// 有关此类的实现，请参阅 MFCApplication1.cpp
+// CFixCHSFileApp: 
+// 有关此类的实现，请参阅 FixCHSFile.cpp
 //
 
-class CMFCApplication1App : public CWinApp
+class CFixCHSFileApp : public CWinApp
 {
 public:
-	CMFCApplication1App();
+	CFixCHSFileApp();
 
 // 重写
 public:
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CMFCApplication1App theApp;
+extern CFixCHSFileApp theApp;
